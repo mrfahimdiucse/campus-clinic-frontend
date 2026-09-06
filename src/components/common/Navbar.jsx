@@ -4,12 +4,20 @@ import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import NotificationBell from './NotificationBell';
 import ProfileEditor from './ProfileEditor';
+import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const [editingProfile, setEditingProfile] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+
+  const navigationItems = [
+    { label: 'Home', to: '/' },
+    { label: 'Find Doctors', to: '/doctors' },
+    { label: 'Pharmacy', to: '/pharmacy' },
+  ];
 
   const handleLogout = () => {
     logout();
@@ -30,11 +38,13 @@ const Navbar = () => {
     }
   };
 
+  const closeMenu = () => setMenuOpen(false);
+
   return (
-    <div className="navbar bg-base-100 dark:bg-slate-900 border-b border-base-200 dark:border-slate-800 shadow-md px-4 sm:px-8 relative z-50 transition-colors duration-300">
+    <div className="navbar min-h-16 bg-base-100 dark:bg-slate-900 border-b border-base-200 dark:border-slate-800 shadow-md px-4 sm:px-8 relative z-50 transition-colors duration-300">
       {/* Brand Logo with Pulse Icon */}
-      <div className="flex-1">
-        <Link to="/" className="flex items-center gap-2 text-2xl font-bold text-primary">
+      <div className="flex-1 min-w-0">
+        <Link to="/" className="flex items-center gap-2 text-xl sm:text-2xl font-bold text-primary" onClick={closeMenu}>
           <svg
             className="w-8 h-8 stroke-primary fill-none"
             viewBox="0 0 24 24"
@@ -48,14 +58,25 @@ const Navbar = () => {
         </Link>
       </div>
 
-      <div className="flex-none gap-3 sm:gap-4 items-center">
+      <div className="flex-none gap-1 sm:gap-4 items-center">
         {/* Navigation Links */}
         <ul className="menu menu-horizontal px-1 hidden md:flex font-medium text-slate-700 dark:text-slate-200">
-          <li><Link to="/" className="hover:text-primary dark:hover:text-primary">Home</Link></li>
-          <li><Link to="/doctors" className="hover:text-primary dark:hover:text-primary">Find Doctors</Link></li>
-          <li><Link to="/pharmacy" className="hover:text-primary dark:hover:text-primary">Pharmacy</Link></li>
+          {navigationItems.map((item) => (
+            <li key={item.to}><Link to={item.to} className="hover:text-primary dark:hover:text-primary">{item.label}</Link></li>
+          ))}
           <li><Link to="/emergency" className="text-error font-semibold">Emergency</Link></li>
         </ul>
+
+        <button
+          type="button"
+          onClick={() => setMenuOpen((isOpen) => !isOpen)}
+          className="btn btn-ghost btn-circle md:hidden text-slate-700 dark:text-slate-200"
+          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
+        >
+          {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
 
         {/* 🌙 / ☀️ Theme Switcher Toggle Button */}
         <button
@@ -133,12 +154,31 @@ const Navbar = () => {
             </div>
           </div>
         ) : (
-          <div className="flex gap-2">
+          <div className="hidden sm:flex gap-2">
             <Link to="/login" className="btn btn-ghost btn-sm text-slate-700 dark:text-slate-200">Login</Link>
             <Link to="/register" className="btn btn-primary btn-sm text-white">Register</Link>
           </div>
         )}
       </div>
+      {menuOpen && (
+        <ul
+          id="mobile-navigation"
+          className="menu menu-sm absolute left-3 right-3 top-full mt-2 rounded-box border border-base-200 bg-base-100 p-2 shadow-xl dark:border-slate-700 dark:bg-slate-800 md:hidden"
+        >
+          {navigationItems.map((item) => (
+            <li key={item.to}><Link to={item.to} onClick={closeMenu}>{item.label}</Link></li>
+          ))}
+          <li><Link to="/emergency" onClick={closeMenu} className="font-semibold text-error">Emergency</Link></li>
+          {!user && (
+            <>
+              <li className="mt-1 border-t border-base-200 pt-1 dark:border-slate-700">
+                <Link to="/login" onClick={closeMenu}>Login</Link>
+              </li>
+              <li><Link to="/register" onClick={closeMenu} className="font-semibold text-primary">Register</Link></li>
+            </>
+          )}
+        </ul>
+      )}
       {editingProfile && <ProfileEditor onClose={() => setEditingProfile(false)} />}
     </div>
   );
