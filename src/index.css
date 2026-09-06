@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 min-h-screen font-sans;
+  }
+
+  .dark {
+    color-scheme: dark;
+  }
+}
+
+@layer utilities {
+  .dark .bg-white,
+  .dark .bg-white\/95,
+  .dark .bg-white\/90 {
+    background-color: #1e293b !important;
+  }
+
+  .dark .bg-slate-50,
+  .dark .bg-gray-50,
+  .dark .bg-gray-100,
+  .dark .bg-slate-100 {
+    background-color: #0f172a !important;
+  }
+
+  .dark .bg-base-100 {
+    background-color: #0f172a !important;
+  }
+
+  .dark .bg-base-200,
+  .dark .bg-slate-200 {
+    background-color: #1e293b !important;
+  }
+
+  .dark .bg-\[\#F8FAFC\] {
+    background-color: #0f172a !important;
+  }
+
+  .dark .bg-\[\#F8FAFC\]\/90,
+  .dark .bg-\[\#F8FAFC\]\/95 {
+    background-color: rgb(15 23 42 / 0.95) !important;
+  }
+
+  .dark .text-gray-900,
+  .dark .text-slate-900,
+  .dark .text-slate-800,
+  .dark .text-gray-800 {
+    color: #f8fafc !important;
+  }
+
+  .dark .text-gray-700,
+  .dark .text-slate-700,
+  .dark .text-gray-600,
+  .dark .text-slate-600 {
+    color: #cbd5e1 !important;
+  }
+
+  .dark .text-gray-500,
+  .dark .text-slate-500,
+  .dark .text-gray-400,
+  .dark .text-slate-400 {
+    color: #94a3b8 !important;
+  }
+
+  .dark .border-gray-100,
+  .dark .border-gray-200,
+  .dark .border-slate-100,
+  .dark .border-slate-200,
+  .dark .border-base-200,
+  .dark .border-base-300 {
+    border-color: #334155 !important;
+  }
+
+  .dark .input,
+  .dark .textarea,
+  .dark .select,
+  .dark .file-input {
+    background-color: #1e293b !important;
+    border-color: #475569 !important;
+    color: #f8fafc !important;
+  }
+
+  .dark input::placeholder,
+  .dark textarea::placeholder {
+    color: #94a3b8;
+  }
+
+  .dark .table :where(th, td),
+  .dark .divide-y > :not([hidden]) ~ :not([hidden]) {
+    border-color: #334155 !important;
+  }
+
+  .dark .hover\:bg-gray-50:hover,
+  .dark .hover\:bg-slate-50:hover {
+    background-color: #334155 !important;
+  }
+}
