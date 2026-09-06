@@ -17,13 +17,13 @@ const FindDoctors = () => {
   const [problemDescription, setProblemDescription] = useState('');
   const [bookingStatus, setBookingStatus] = useState({ loading: false, message: '', error: '' });
   const [loadError, setLoadError] = useState('');
-  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
+  const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://campus-clinic-backend-jmil.onrender.com/api/v1';
 
   const fetchDoctors = async () => {
     try {
       setLoading(true);
       setLoadError('');
-      const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
+      const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://campus-clinic-backend-jmil.onrender.com/api/v1';
           const res = await axios.get(`${API_BASE_URL}/doctors`, {
             params: { search, specialization, status: 'APPROVED' },
       });

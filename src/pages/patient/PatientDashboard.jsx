@@ -13,7 +13,7 @@ import {
 import { Video, Building2, Ticket, MapPin, ExternalLink, Calendar, Clock, FileText, X } from 'lucide-react';
 
 // Add this near the top of PatientDashboard.jsx (outside the component)
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://campus-clinic-backend-jmil.onrender.com/api/v1';
 const ITEM_LIMIT = 3;
 
 const CustomTooltip = ({ active, payload, label }) => {
